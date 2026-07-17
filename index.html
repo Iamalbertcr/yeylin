@@ -322,10 +322,9 @@
     <div class="texto-viaje">Viajando por el universo hacia ti... 💫</div>
   </div>
 
-  <div class="corazon-musica" id="musica" title="Música">🔇</div>
+  <div class="corazon-musica" id="musica" title="Música">🎵</div>
   <audio id="audio" loop>
-    <!-- Reemplaza esta URL con tu canción romántica favorita (mp3) -->
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg" />
+    <source src="Morat - Aprenderte a quererte.mp3" type="audio/mpeg" />
   </audio>
 
 <script>
@@ -378,6 +377,7 @@
       inicio.style.display = 'none';
       contenido.style.display = 'block';
       iniciarCuenta();
+      asegurarMusica();
     }, 2400);
   }
   function crearRayo(contenedor) {
@@ -534,8 +534,11 @@
   const musica = document.getElementById('musica');
   musica.addEventListener('click', () => {
     if (audio.paused) { audio.play(); musica.textContent = '🎵'; }
-    else { audio.pause(); musica.textContent = '🔇'; }
   });
+  function asegurarMusica() {
+    if (audio.paused) audio.play().catch(() => {});
+    musica.textContent = '🎵';
+  }
 </script>
 </body>
 </html>
