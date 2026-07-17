@@ -323,7 +323,7 @@
   </div>
 
   <div class="corazon-musica" id="musica" title="Música">🎵</div>
-  <audio id="audio" loop>
+  <audio id="audio" loop autoplay playsinline>
     <source src="Morat - Aprenderte a quererte.mp3" type="audio/mpeg" />
   </audio>
 
@@ -409,6 +409,7 @@
   document.getElementById('btn-abrir').addEventListener('click', () => {
     inicio.classList.add('oculto');
     setTimeout(() => { inicio.style.display = 'none'; viajeGalaxia(); }, 900);
+    asegurarMusica();
   });
 
   // ---------- Cuenta regresiva ----------
@@ -532,12 +533,24 @@
   // ---------- Música ----------
   const audio = document.getElementById('audio');
   const musica = document.getElementById('musica');
+  function actualizarMusicaUI() {
+    musica.textContent = audio.paused ? '🎵' : '🔇';
+  }
   musica.addEventListener('click', () => {
-    if (audio.paused) { audio.play(); musica.textContent = '🎵'; }
+    if (audio.paused) audio.play().catch(() => {});
+    actualizarMusicaUI();
   });
   function asegurarMusica() {
-    if (audio.paused) audio.play().catch(() => {});
-    musica.textContent = '🎵';
+    audio.play().catch(() => {});
+    actualizarMusicaUI();
+  }
+  audio.addEventListener('play', actualizarMusicaUI);
+  audio.addEventListener('pause', actualizarMusicaUI);
+  audio.addEventListener('ended', actualizarMusicaUI);
+  if (audio) {
+    audio.volume = 1;
+    audio.muted = false;
+    audio.play().then(() => actualizarMusicaUI()).catch(() => actualizarMusicaUI());
   }
 </script>
 </body>
