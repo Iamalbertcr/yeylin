@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Para ti, Yeylin 💖</title>
+<style>
+  :root {
+    --negro: #05060a;
+    --rojo: #e23a52;
+    --rojo-suave: #f06a7e;
+    --blanco: #f5f6fa;
+    --gris: #c3c7d6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body { height: 100%; overflow-x: hidden; }
+
+  body {
+    font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background:
+      radial-gradient(circle at 20% 15%, #1b0c14 0%, transparent 45%),
+      radial-gradient(circle at 80% 85%, #140a12 0%, transparent 45%),
+      linear-gradient(160deg, #0a0b14 0%, #05060a 50%, #08060b 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: var(--blanco);
+    overflow-x: hidden;
+    padding: 20px 0;
+  }
+
+  /* ---------- Cielo de galaxia ---------- */
+  .estrellas, .estrellas2, .estrellas3 {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  }
+  .estrella {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: parpadeo ease-in-out infinite;
+  }
+  @keyframes parpadeo {
+    0%, 100% { opacity: 0.25; transform: scale(0.8); }
+    50%      { opacity: 1; transform: scale(1.15); }
+  }
+  .estrella.destello {
+    box-shadow: 0 0 6px 1px rgba(240,106,126,0.6);
+    background: #ffe3e8;
+  }
+
+  .nebulosa {
+    position: fixed; border-radius: 50%; filter: blur(90px);
+    opacity: 0.28; z-index: 0; pointer-events: none;
+    animation: flotar 22s ease-in-out infinite;
+  }
+  .neb1 { width: 520px; height: 520px; background: #e23a52; top: -120px; left: -100px; }
+  .neb2 { width: 460px; height: 460px; background: #7a1e34; bottom: -120px; right: -90px; animation-delay: -11s; }
+  .neb3 { width: 360px; height: 360px; background: #3a1020; top: 40%; left: 55%; animation-delay: -5s; }
+
+  @keyframes flotar {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50%      { transform: translate(40px, 30px) scale(1.12); }
+  }
+
+  /* cometas cayendo */
+  .caida {
+    position: fixed; top: -60px; font-size: 22px;
+    user-select: none; pointer-events: none; z-index: 1;
+    animation: caer linear infinite;
+    filter: drop-shadow(0 0 4px rgba(240,106,126,0.4));
+  }
+  @keyframes caer {
+    0%   { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+    12%  { opacity: 0.9; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0.15; }
+  }
+
+  .contenedor {
+    position: relative; z-index: 3;
+    text-align: center; padding: 44px 28px;
+    max-width: 660px; width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+    /* LiquidGlass */
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04) 40%, rgba(255,255,255,0.10));
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 30px;
+    box-shadow:
+      0 18px 50px rgba(0,0,0,0.45),
+      inset 0 1px 1px rgba(255,255,255,0.45),
+      inset 0 -1px 1px rgba(226,58,82,0.25),
+      inset 0 0 30px rgba(255,255,255,0.06);
+    animation: aparecer 1.4s ease both;
+  }
+  .contenedor::-webkit-scrollbar { width: 8px; }
+  .contenedor::-webkit-scrollbar-thumb {
+    background: rgba(226,58,82,0.5); border-radius: 10px;
+  }
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .titulo {
+    font-size: clamp(26px, 6.5vw, 48px);
+    font-weight: 800; letter-spacing: 1px; margin-bottom: 18px;
+    color: var(--blanco);
+    text-shadow: 0 2px 12px rgba(226, 58, 82, 0.35);
+    animation: latido 3.4s ease-in-out infinite;
+    word-break: break-word; overflow-wrap: anywhere; line-height: 1.15;
+  }
+  @keyframes latido {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.03); }
+  }
+
+  .mensaje {
+    font-size: clamp(16px, 4vw, 21px);
+    line-height: 1.75; color: var(--blanco);
+    margin: 18px 0 26px; font-weight: 400;
+    min-height: 1.75em;
+  }
+  .mensaje .nombre {
+    color: var(--rojo-suave); font-weight: 800;
+  }
+  .firma {
+    font-style: italic; color: var(--gris);
+    font-size: clamp(15px, 3.5vw, 19px); margin-top: 10px;
+  }
+
+  /* cursor de escritura */
+  .cursor {
+    display: inline-block; width: 2px; height: 1.1em;
+    background: var(--rojo-suave); margin-left: 2px;
+    vertical-align: text-bottom; animation: parpadeo-cursor 0.9s steps(1) infinite;
+  }
+  @keyframes parpadeo-cursor { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  /* ---------- Botones animados ---------- */
+  .boton {
+    position: relative; overflow: hidden;
+    margin-top: 28px; display: inline-block;
+    border: 1px solid rgba(226, 58, 82, 0.55);
+    cursor: pointer; font-size: clamp(16px, 4vw, 20px); font-weight: 700;
+    color: var(--blanco); padding: 16px 36px; border-radius: 50px;
+    background: linear-gradient(90deg, rgba(226,58,82,0.85), rgba(240,106,126,0.7));
+    box-shadow: 0 8px 22px rgba(0,0,0,0.35), inset 0 0 14px rgba(255,255,255,0.08);
+    transition: transform 0.3s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s ease;
+    animation: respirar 3s ease-in-out infinite;
+  }
+  .boton::after {
+    content: ''; position: absolute; top: 0; left: -120%;
+    width: 60%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-20deg);
+    animation: brillo 3.5s ease-in-out infinite;
+  }
+  @keyframes brillo {
+    0%, 60% { left: -120%; }
+    100%    { left: 140%; }
+  }
+  .boton:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 14px 32px rgba(226,58,82,0.45), inset 0 0 18px rgba(255,255,255,0.12);
+  }
+  .boton:active { transform: translateY(-1px) scale(0.98); }
+  @keyframes respirar {
+    0%, 100% { box-shadow: 0 8px 22px rgba(0,0,0,0.35), inset 0 0 14px rgba(255,255,255,0.08); }
+    50%      { box-shadow: 0 10px 28px rgba(226,58,82,0.3), inset 0 0 16px rgba(255,255,255,0.1); }
+  }
+
+  .corazon-click {
+    position: fixed; font-size: 28px; pointer-events: none; z-index: 99;
+    animation: subir 1.5s ease-out forwards;
+    filter: drop-shadow(0 0 6px rgba(226,58,82,0.5));
+  }
+  @keyframes subir {
+    0%   { transform: translateY(0) scale(0.6); opacity: 1; }
+    100% { transform: translateY(-170px) scale(1.6); opacity: 0; }
+  }
+
+  .rama {
+    font-size: 58px; margin-bottom: 10px; display: inline-block;
+    animation: girar 12s linear infinite;
+    filter: drop-shadow(0 0 8px rgba(226,58,82,0.4));
+  }
+  @keyframes girar { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+
+  #pantalla-inicio {
+    position: fixed; inset: 0; z-index: 100;
+    background:
+      radial-gradient(circle at 30% 30%, #1b0c14 0%, transparent 50%),
+      radial-gradient(circle at 70% 70%, #140a12 0%, transparent 50%),
+      linear-gradient(160deg, #0a0b14, #05060a);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 26px; transition: opacity 0.9s ease;
+  }
+  #pantalla-inicio h1 {
+    color: var(--blanco); font-size: clamp(24px, 6.5vw, 44px);
+    text-shadow: 0 2px 14px rgba(226,58,82,0.35); text-align: center; padding: 0 20px;
+    word-break: break-word; overflow-wrap: anywhere; line-height: 1.2;
+  }
+
+  .oculto { opacity: 0; pointer-events: none; }
+
+  .cuenta { margin: 10px 0; }
+  .cuenta .num {
+    font-size: clamp(80px, 22vw, 150px); font-weight: 900; line-height: 1;
+    color: var(--blanco); text-shadow: 0 4px 22px rgba(226,58,82,0.4);
+    animation: pop 1s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes pop {
+    0%   { transform: scale(0.2); opacity: 0; }
+    55%  { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(1); }
+  }
+  .sub { color: var(--gris); font-size: clamp(14px,3.5vw,18px); margin-top: 8px; }
+
+  .progreso { color: var(--rojo-suave); font-weight: 700; margin-top: 16px; font-size: clamp(14px,3.5vw,17px); }
+
+  .corazon-musica {
+    position: fixed; bottom: 18px; right: 18px; font-size: 24px; z-index: 50;
+    cursor: pointer; color: var(--blanco);
+    background: rgba(12,14,24,0.6); border: 1px solid rgba(226,58,82,0.5);
+    border-radius: 50%; width: 54px; height: 54px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    animation: latido 2.6s ease-in-out infinite;
+  }
+
+  @media (max-width: 480px) {
+    .contenedor { padding: 30px 18px; border-radius: 24px; }
+    .boton { padding: 14px 26px; font-size: 16px; }
+    .rama { font-size: 46px; }
+    .cuenta .num { font-size: clamp(64px, 30vw, 110px); }
+  }
+
+  /* ---------- Viaje entre galaxias (hyperspace) ---------- */
+  #viaje {
+    position: fixed; inset: 0; z-index: 120;
+    background: radial-gradient(circle at 50% 50%, #1a0a14 0%, #05060a 60%, #000 100%);
+    display: none; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  #viaje.activo { display: flex; }
+  #viaje .centro {
+    position: absolute; width: 8px; height: 8px; border-radius: 50%;
+    background: #fff; box-shadow: 0 0 18px 6px rgba(240,106,126,0.8);
+    left: 50%; top: 50%; transform: translate(-50%, -50%);
+    animation: nucleo 2.2s ease-out forwards;
+  }
+  @keyframes nucleo {
+    0%   { transform: translate(-50%,-50%) scale(0.4); opacity: 0; }
+    30%  { opacity: 1; }
+    100% { transform: translate(-50%,-50%) scale(40); opacity: 0; }
+  }
+  .rayo {
+    position: absolute; left: 50%; top: 50%;
+    width: 2px; height: 2px; border-radius: 50%;
+    background: #fff; transform-origin: 0 0; opacity: 0;
+    box-shadow: 0 0 6px rgba(240,106,126,0.7);
+  }
+  #viaje .texto-viaje {
+    position: relative; z-index: 2; color: var(--blanco);
+    font-size: clamp(18px, 5vw, 30px); font-weight: 700;
+    text-shadow: 0 2px 14px rgba(226,58,82,0.6); letter-spacing: 1px;
+    opacity: 0; animation: aparecerTextoViaje 1.2s ease 0.6s forwards;
+  }
+  @keyframes aparecerTextoViaje { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+  <!-- Cielo de galaxia -->
+  <div class="estrellas" id="estrellas"></div>
+  <div class="estrellas2" id="estrellas2"></div>
+  <div class="estrellas3" id="estrellas3"></div>
+  <div class="nebulosa neb1"></div>
+  <div class="nebulosa neb2"></div>
+  <div class="nebulosa neb3"></div>
+
+  <div id="pantalla-inicio">
+    <div class="rama">🌌</div>
+    <h1>Yeylin Suyenci Molina Acosta <br>
+    tengo algo del universo para ti 💫</h1>
+    <button class="boton" id="btn-abrir">Abrir 💌</button>
+  </div>
+
+  <div class="contenedor" id="contenido" style="display:none">
+    <div class="rama">🌌💫🌌</div>
+    <h1 class="titulo" id="titulo-cuenta">Yeylin... 💖</h1>
+
+    <div id="cuenta" class="cuenta">
+      <div class="num" id="num-cuenta">3</div>
+      <p class="sub">prepárate, algo bonito viene del cosmos para ti ✨</p>
+    </div>
+
+    <div id="secuencia" style="display:none">
+      <p class="mensaje" id="msg-actual"></p>
+      <p class="progreso" id="progreso"></p>
+      <button class="boton" id="btn-siguiente">Siguiente 💗</button>
+    </div>
+
+    <div id="final" style="display:none">
+      <div class="rama">🌹💖🌹</div>
+      <h1 class="titulo">Yeylin, me gustas 💖</h1>
+      <p class="mensaje" id="msg-final"></p>
+      <p class="firma">— Con todo mi cariño, para ti ✨</p>
+      <button class="boton" id="btn-corazones">Haz clic si también sonríes 💗</button>
+    </div>
+  </div>
+
+  <div id="viaje">
+    <div class="centro"></div>
+    <div class="texto-viaje">Viajando por el universo hacia ti... 💫</div>
+  </div>
+
+  <div class="corazon-musica" id="musica" title="Música">🔇</div>
+  <audio id="audio" loop>
+    <!-- Reemplaza esta URL con tu canción romántica favorita (mp3) -->
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3" type="audio/mpeg" />
+  </audio>
+
+<script>
+  // ---------- Estrellas de la galaxia ----------
+  function crearEstrellas(contenedor, cantidad, tamMax) {
+    const c = document.getElementById(contenedor);
+    for (let i = 0; i < cantidad; i++) {
+      const e = document.createElement('div');
+      e.className = 'estrella' + (Math.random() > 0.9 ? ' destello' : '');
+      const s = Math.random() * tamMax + 1;
+      e.style.width = s + 'px';
+      e.style.height = s + 'px';
+      e.style.left = Math.random() * 100 + 'vw';
+      e.style.top = Math.random() * 100 + 'vh';
+      e.style.animationDuration = (2 + Math.random() * 4) + 's';
+      e.style.animationDelay = (Math.random() * 4) + 's';
+      c.appendChild(e);
+    }
+  }
+  crearEstrellas('estrellas', 200, 2.4);
+  crearEstrellas('estrellas2', 90, 1.6);
+  crearEstrellas('estrellas3', 50, 1.1);
+
+  // ---------- Cometas / corazones cayendo ----------
+  const simbolos = ['💖','✨','⭐','💫','🌹','💗','🌟'];
+  function crearCaida() {
+    const el = document.createElement('div');
+    el.className = 'caida';
+    el.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    const dur = 7 + Math.random() * 8;
+    el.style.animationDuration = dur + 's';
+    el.style.fontSize = (14 + Math.random() * 20) + 'px';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), dur * 1000);
+  }
+  setInterval(crearCaida, 450);
+
+  // ---------- Viaje entre galaxias ----------
+  function viajeGalaxia() {
+    const viaje = document.getElementById('viaje');
+    viaje.classList.add('activo');
+    const total = 120;
+    for (let i = 0; i < total; i++) {
+      setTimeout(() => crearRayo(viaje), i * 12);
+    }
+    setTimeout(() => {
+      viaje.classList.remove('activo');
+      viaje.innerHTML = '<div class="centro"></div><div class="texto-viaje">Viajando por el universo hacia ti... 💫</div>';
+      inicio.style.display = 'none';
+      contenido.style.display = 'block';
+      iniciarCuenta();
+    }, 2400);
+  }
+  function crearRayo(contenedor) {
+    const r = document.createElement('div');
+    r.className = 'rayo';
+    const ang = Math.random() * Math.PI * 2;
+    const dist = 40 + Math.random() * 60;
+    const dx = Math.cos(ang), dy = Math.sin(ang);
+    const largo = 30 + Math.random() * 50;
+    const dur = 0.5 + Math.random() * 0.6;
+    r.style.left = (50 + dx * dist) + 'vw';
+    r.style.top = (50 + dy * dist) + 'vh';
+    r.style.width = largo + 'px';
+    r.style.height = (1 + Math.random() * 2) + 'px';
+    r.style.transform = `rotate(${ang}rad)`;
+    r.style.transition = `transform ${dur}s cubic-bezier(.2,.7,.3,1), opacity ${dur}s ease`;
+    if (Math.random() > 0.8) r.style.background = '#ffb3c0';
+    contenedor.appendChild(r);
+    requestAnimationFrame(() => {
+      r.style.opacity = '1';
+      r.style.transform = `translate(${dx * 70}vw, ${dy * 70}vh) rotate(${ang}rad) scale(1.4)`;
+    });
+    setTimeout(() => r.remove(), dur * 1000 + 100);
+  }
+
+  // ---------- Pantalla de inicio ----------
+  const inicio = document.getElementById('pantalla-inicio');
+  const contenido = document.getElementById('contenido');
+  document.getElementById('btn-abrir').addEventListener('click', () => {
+    inicio.classList.add('oculto');
+    setTimeout(() => { inicio.style.display = 'none'; viajeGalaxia(); }, 900);
+  });
+
+  // ---------- Cuenta regresiva ----------
+  function iniciarCuenta() {
+    const num = document.getElementById('num-cuenta');
+    let n = 3;
+    num.textContent = n;
+    num.style.animation = 'none'; void num.offsetWidth; num.style.animation = 'pop 1s cubic-bezier(.34,1.56,.64,1)';
+    const intervalo = setInterval(() => {
+      n--;
+      if (n === 0) {
+        clearInterval(intervalo);
+        document.getElementById('cuenta').style.display = 'none';
+        iniciarSecuencia();
+      } else {
+        num.textContent = n;
+        num.style.animation = 'none'; void num.offsetWidth; num.style.animation = 'pop 1s cubic-bezier(.34,1.56,.64,1)';
+      }
+    }, 1000);
+  }
+
+  // ---------- Escritura letra por letra ----------
+  let timerEscritura = null;
+  function escribir(elemento, texto, velocidad, alFinal) {
+    clearTimeout(timerEscritura);
+    elemento.innerHTML = '';
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    elemento.appendChild(cursor);
+    let i = 0;
+    function paso() {
+      if (i < texto.length) {
+        cursor.insertAdjacentText('beforebegin', texto.charAt(i));
+        i++;
+        timerEscritura = setTimeout(paso, velocidad);
+      } else if (alFinal) {
+        setTimeout(alFinal, 400);
+      }
+    }
+    paso();
+  }
+
+  // ---------- Secuencia de mensajes (clic a clic) ----------
+  const mensajes = [
+    "Yeylin... hay algo que quiero decirte bajo las estrellas 🌌",
+    "Cada vez que te veo, el universo se vuelve más bonito ✨",
+    "Tus risas son mi parte favorita del día 💗",
+    "Tu mirada es el paisaje que más me gusta ver 💫",
+    "Y hoy, entre mil mundos, me animé a decírtelo...",
+    "Porque me gustas. Me gustas de verdad 💖"
+  ];
+  let indice = 0;
+  function iniciarSecuencia() {
+    document.getElementById('secuencia').style.display = 'block';
+    mostrarMensaje();
+  }
+  function mostrarMensaje() {
+    document.getElementById('progreso').textContent = (indice + 1) + ' de ' + mensajes.length + ' 💞';
+    const btn = document.getElementById('btn-siguiente');
+    btn.textContent = (indice === mensajes.length - 1) ? 'Ver el final 💖' : 'Siguiente 💗';
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = '0.5';
+    escribir(document.getElementById('msg-actual'), mensajes[indice], 45, () => {
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+    });
+  }
+  document.getElementById('btn-siguiente').addEventListener('click', (e) => {
+    e.stopPropagation();
+    clearTimeout(timerEscritura);
+    indice++;
+    if (indice < mensajes.length) {
+      mostrarMensaje();
+    } else {
+      document.getElementById('secuencia').style.display = 'none';
+      document.getElementById('final').style.display = 'block';
+      const textoFinal =
+        "Entre miles de estrellas, tu iluminas mis días. 🌌\n\n" +
+        "mi sonrisa aparece sola cuando te pienso, o cuando mi telefono " +
+        "me notifica un mensaje tuyo.\n\n" +
+        "Me gustas de verdad con lo simple y lo complicado, con tus " +
+        "silencios y tus risas. Y si me dejas, me gustaría conocerte " +
+        "un poquito más cada día. 💕";
+      // resaltar "Me gustas de verdad"
+      const partes = textoFinal.split("Me gustas de verdad");
+      escribir(document.getElementById('msg-final'), partes[0], 35, () => {
+        const span = document.createElement('span');
+        span.className = 'nombre';
+        span.textContent = 'Me gustas de verdad';
+        document.getElementById('msg-final').appendChild(span);
+        escribir(document.getElementById('msg-final'), partes[1], 35);
+      });
+      for (let i = 0; i < 30; i++) setTimeout(() => lanzarCorazon(
+        Math.random() * window.innerWidth, Math.random() * window.innerHeight), i * 40);
+    }
+  });
+
+  // ---------- Corazones al hacer clic ----------
+  function lanzarCorazon(x, y) {
+    const c = document.createElement('div');
+    c.className = 'corazon-click';
+    c.textContent = ['💖','💗','💕','💝','🌹','⭐'][Math.floor(Math.random() * 6)];
+    c.style.left = x + 'px';
+    c.style.top = y + 'px';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 1500);
+  }
+  document.getElementById('btn-corazones').addEventListener('click', (e) => {
+    for (let i = 0; i < 16; i++) {
+      setTimeout(() => lanzarCorazon(
+        e.clientX + (Math.random() * 120 - 60),
+        e.clientY + (Math.random() * 60 - 30)
+      ), i * 60);
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (['btn-corazones','btn-abrir','musica','btn-siguiente'].includes(e.target.id)) return;
+    lanzarCorazon(e.clientX, e.clientY);
+  });
+
+  // ---------- Música ----------
+  const audio = document.getElementById('audio');
+  const musica = document.getElementById('musica');
+  musica.addEventListener('click', () => {
+    if (audio.paused) { audio.play(); musica.textContent = '🎵'; }
+    else { audio.pause(); musica.textContent = '🔇'; }
+  });
+</script>
+</body>
+</html>
